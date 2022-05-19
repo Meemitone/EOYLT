@@ -3,13 +3,13 @@ class Segment
   float radius;
   PVector position;
   PVector velocity;
-  PVector target;
-  float turn, turnRate;
+  PVector target;//Thankfully, the use of a pointer here causes the target to track automagically
+  float turn;//each segment remembers this info for itself
   boolean limbs;
   char gender;
   int eyes;
   int len;
-  Segment next=null;
+  Segment next=null;//Say hello to linked list architecture
   
   Segment(float rad, PVector pos, PVector vel, boolean lim, char gen, int eye, int len, PVector target)
   {
@@ -26,7 +26,7 @@ class Segment
     PVector disp = new PVector(0, rad*2);
     disp.add(pos);
     if(len > 1)
-    next = new Segment(rad, disp, vel.copy(), lim, gen, len-1, pos);
+    next = new Segment(rad, disp, vel.copy(), lim, gen, len-1, pos);//recursive limb creation, only the last has gendered bits and only the first has eyes
     
   }
   Segment(float rad, PVector pos, PVector vel, boolean lim, char gen, int len, PVector target)
@@ -57,12 +57,11 @@ class Segment
     float b = target.y-position.y;
     a*=a;
     b*=b;
-    if((a+b)>(radius*radius*4))
+    if((a+b)>(radius*radius*4))//vector math here, dist() wasn't working so I did it manual then discovered an errant ;
     {
     position.add(velocity);
     turn = velocity.heading()+HALF_PI;
     }
-    
     pushMatrix();
     translate(position.x, position.y);
     rotate(turn);
@@ -74,7 +73,7 @@ class Segment
       //if(eyes%2==0)
       rotate(eyeangle/2);
       
-      rotate(-TWO_PI/6+eyeangle*i);
+      rotate(-TWO_PI/6+eyeangle*i);//eyes
       line(0, -radius, 0, -radius*2);
       
       circle(0,-radius*2-radius/4,radius/2);
@@ -87,7 +86,7 @@ class Segment
     }
     if(gender != 'n')
     {
-      if(gender == 'f' || gender == 'h')
+      if(gender == 'f' || gender == 'h')//overlapping conditionals
       {
         circle(0,0,radius);
       }
@@ -99,6 +98,6 @@ class Segment
     }
     popMatrix();
     if(next!=null)
-    next.render();
+    next.render();//recursive drawing
   }
 }

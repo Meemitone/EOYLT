@@ -4,7 +4,7 @@ class tadpole
   boolean limbs;
   char genda;
   //0 and 5 is 0 (bitwise operation)
-  int eyes;
+  int eyes;//I think a lot of this is now rendered obsolete, except for the empty constructor
   String name;
   color col;
   

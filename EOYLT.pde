@@ -1,7 +1,7 @@
 
 tadpole son;
-String[] namespace = {"Kevin", "Bartholemew", "Phoenix", "Trenchcoat", "Children", "String", "int", "boolean", "char", "new", "Smell", "Lasagne", "Sport", "Required", "A class containing a recursive class"};
-PVector target;
+String[] namespace = {"Kevin", "Bartholemew", "Phoenix", "Trenchcoat", "Children", "String", "int", "boolean", "char", "new", "Smell", "Lasagne", "Sport", "Required", "A class containing a recursive class", "an", "Somebody", "Once", "Told", "Me", "The", "Who", "First"};
+PVector target; //this is mousepos
 
 void setup()
 {
@@ -17,10 +17,9 @@ void setup()
 void draw()
 {
   background(0);
-  target.x = mouseX;
+  target.x = mouseX;//update mouse
   target.y = mouseY;
   son.render();
-  
 }
 
 void randomise()
@@ -28,7 +27,7 @@ void randomise()
   int len = int(random(1,11));
   boolean lim = boolean(int(random(0,2))-1);
   int chartyp =  int(random(0,4));
-  char gen = 'l';
+  char gen = 'l';//generate variables to remake the wurm
   switch(chartyp)
   {
     case 0:
@@ -54,7 +53,7 @@ void randomise()
     if(!((i+1)==namelen))
     name+=" ";
   }
-  son = new tadpole(len,lim,gen,eye,name,col,target);//(int l, boolean limb, char propa, int seers, String name, color tint)
+  son = new tadpole(len,lim,gen,eye,name,col,target);//Unfortunately this resets the position of the wurm
   println(len);
 }
 
@@ -63,6 +62,6 @@ void keyReleased()
 {
   if(key == ' ')
   {
-    randomise();
+    randomise();//easy as
   }
 }
