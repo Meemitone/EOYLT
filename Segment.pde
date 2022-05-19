@@ -16,10 +16,14 @@ class Segment
     position = pos;
     velocity = vel;
     limbs = false;//head never has limbs
+    if(len == 1)
+    gender = gen;
+    else
     gender = 'n';
     eyes = eye;
     PVector disp = new PVector(0, rad*2);
     disp.add(pos);
+    if(len > 1)
     next = new Segment(rad, disp, vel.copy(), lim, gen, len-1);
     
   }
@@ -29,14 +33,14 @@ class Segment
     position = pos;
     velocity = vel;
     limbs = lim;
-    if(len == 0)
+    if(len == 1)
     gender = gen;
     else
     gender = 'n';
     eyes = 0;
     PVector disp = new PVector(0, rad*2);
     disp.add(pos);
-    if(len > 0)
+    if(len > 1)
     next = new Segment(rad, disp, vel.copy(), lim, gen, len-1);
   }
   
@@ -50,10 +54,13 @@ class Segment
     for(int i = 0; i < eyes; i++)
     {
       pushMatrix();
+      //if(eyes%2==0)
+      rotate(eyeangle/2);
+      
       rotate(-TWO_PI/6+eyeangle*i);
       line(0, -radius, 0, -radius*2);
       
-        circle(0,-radius*2-radius/4,radius/2);
+      circle(0,-radius*2-radius/4,radius/2);
       popMatrix();
     }
     if(limbs)

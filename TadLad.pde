@@ -22,7 +22,7 @@ class tadpole
     col = tint;
     
     
-    head = new Segment(40, new PVector(270,0), new PVector(0,0), limb, propa, seers, l);//(float rad, PVector pos, PVector vel, boolean lim, char gen, int eye, int len)
+    head = new Segment(35, new PVector(1920/2,270), new PVector(0,0), limb, propa, seers, l);//(float rad, PVector pos, PVector vel, boolean lim, char gen, int eye, int len)
   }
   
   tadpole()
@@ -33,12 +33,21 @@ class tadpole
     eyes = 0;
     this.name = "Seven Squirrels in a Trenchcoat";
     col = #FFFFFF;
-    head = new Segment(40, new PVector(270,0), new PVector(0,0), limbs, genda, eyes, len);
+    head = new Segment(40, new PVector(1920/2,270), new PVector(0,0), limbs, genda, eyes, len);
   }
   
   void render()
   {
     stroke(col);
+    pushMatrix();
+    fill(col);
+    translate(width/2, 100);
+    textSize(40);
+    rectMode(CENTER);
+    textAlign(CENTER);
+    text(name, 0,0);
+    noFill();
+    popMatrix();
     head.render();
   }
 }
