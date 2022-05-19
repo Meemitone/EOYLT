@@ -43,7 +43,7 @@ void randomise()
     gen = 'h';
     break;
   }
-  int eye = int(random(0,9));
+  int eye = int(random(0,10));
   color col = color(random(100,255),random(100,255),random(100,255));
   int namelen = int(random(1,6));
   String name = "";
