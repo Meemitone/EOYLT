@@ -1,12 +1,14 @@
 
 tadpole son;
-String[] namespace = {"Kevin", "Bartholemew", "Phoenix", "Trenchcoat", "Children", "String", "int", "boolean", "char", "new", "Smell", "Lasagne", "Sport", "Required", "A single recursive class"};
+String[] namespace = {"Kevin", "Bartholemew", "Phoenix", "Trenchcoat", "Children", "String", "int", "boolean", "char", "new", "Smell", "Lasagne", "Sport", "Required", "A class containing a recursive class"};
+PVector target;
 
 void setup()
 {
   fullScreen();
   strokeWeight(3);
-  son = new tadpole(3,true,'h',4,"SVEN",#FF00FF);//(int l, boolean limb, char propa, int seers, String name, color tint)
+  target = new PVector(mouseX, mouseY);
+  son = new tadpole(3,true,'h',4,"SVEN",#FF00FF, target);//(int l, boolean limb, char propa, int seers, String name, color tint)
   randomise();
   noFill();
 }
@@ -15,7 +17,10 @@ void setup()
 void draw()
 {
   background(0);
+  target.x = mouseX;
+  target.y = mouseY;
   son.render();
+  
 }
 
 void randomise()
@@ -45,11 +50,11 @@ void randomise()
   String name = "";
   for(int i = 0; i < namelen; i++)
   {
-    name+= namespace[int(random(0,namespace.length-1))];
+    name+= namespace[int(random(0,namespace.length))];
     if(!((i+1)==namelen))
     name+=" ";
   }
-  son = new tadpole(len,lim,gen,eye,name,col);//(int l, boolean limb, char propa, int seers, String name, color tint)
+  son = new tadpole(len,lim,gen,eye,name,col,target);//(int l, boolean limb, char propa, int seers, String name, color tint)
   println(len);
 }
 

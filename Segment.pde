@@ -3,6 +3,7 @@ class Segment
   float radius;
   PVector position;
   PVector velocity;
+  PVector target;
   float turn, turnRate;
   boolean limbs;
   char gender;
@@ -10,8 +11,9 @@ class Segment
   int len;
   Segment next=null;
   
-  Segment(float rad, PVector pos, PVector vel, boolean lim, char gen, int eye, int len)
+  Segment(float rad, PVector pos, PVector vel, boolean lim, char gen, int eye, int len, PVector target)
   {
+    this.target = target;
     radius = rad;
     position = pos;
     velocity = vel;
@@ -24,11 +26,12 @@ class Segment
     PVector disp = new PVector(0, rad*2);
     disp.add(pos);
     if(len > 1)
-    next = new Segment(rad, disp, vel.copy(), lim, gen, len-1);
+    next = new Segment(rad, disp, vel.copy(), lim, gen, len-1, pos);
     
   }
-  Segment(float rad, PVector pos, PVector vel, boolean lim, char gen, int len)
+  Segment(float rad, PVector pos, PVector vel, boolean lim, char gen, int len, PVector target)
   {
+    this.target = target;
     radius = rad;
     position = pos;
     velocity = vel;
@@ -41,11 +44,25 @@ class Segment
     PVector disp = new PVector(0, rad*2);
     disp.add(pos);
     if(len > 1)
-    next = new Segment(rad, disp, vel.copy(), lim, gen, len-1);
+    next = new Segment(rad, disp, vel.copy(), lim, gen, len-1, pos);
   }
   
   void render()
   {
+    velocity = target.copy();
+    velocity.sub(position);
+    velocity = PVector.fromAngle(velocity.heading());
+    velocity.mult(2);
+    float a = target.x-position.x;
+    float b = target.y-position.y;
+    a*=a;
+    b*=b;
+    if((a+b)>(radius*radius*4))
+    {
+    position.add(velocity);
+    turn = velocity.heading()+HALF_PI;
+    }
+    
     pushMatrix();
     translate(position.x, position.y);
     rotate(turn);
