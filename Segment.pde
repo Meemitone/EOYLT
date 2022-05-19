@@ -49,6 +49,8 @@ class Segment
   
   void render()
   {
+    if(next!=null)
+    next.render();
     velocity = target.copy();
     velocity.sub(position);
     velocity = PVector.fromAngle(velocity.heading());
@@ -60,8 +62,8 @@ class Segment
     if((a+b)>(radius*radius*4))//vector math here, dist() wasn't working so I did it manual then discovered an errant ;
     {
     position.add(velocity);
-    turn = velocity.heading()+HALF_PI;
     }
+    turn = velocity.heading()+HALF_PI;
     pushMatrix();
     translate(position.x, position.y);
     rotate(turn);
@@ -96,8 +98,6 @@ class Segment
         circle(0,radius*2+radius/4,radius/2);
       }
     }
-    popMatrix();
-    if(next!=null)
-    next.render();//recursive drawing
+    popMatrix();//recursive drawing
   }
 }

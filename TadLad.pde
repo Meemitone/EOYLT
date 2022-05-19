@@ -49,6 +49,7 @@ class tadpole
     text(name, 0,0);
     noFill();
     popMatrix();
+    fill(0);
     head.render();
   }
 }
